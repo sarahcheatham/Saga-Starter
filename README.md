@@ -15,3 +15,7 @@ Saga will take async code and make it feel and run more
 synchronous. Although it's no more synchronous than a JS
 promise or a thunk, (which is just a promise), it's concise
 and easy to read & easy to test too. 
+
+see the redux-saga docs , linked here, for all the info you need.
+
+https://redux-saga.js.org/docs/api/
