@@ -2,6 +2,7 @@ import axios from 'axios';
 import { call, put, takeEvery, all, take, race } from "redux-saga/effects";
 import { ACTION_TYPE } from "../Store/types";
 import testProfileData from "../api/testProfileData";
+import testPieChartData from '../api/testPieChartData';
 
 /** for the sake of things I'm going to mock the api calls and not build out some api on the side. The important thing
  * you gather here is the flow of the saga. You can literally dispatch whatever you need, when you need it.
@@ -14,9 +15,10 @@ const delay = duration => {
   return promise
 }
 // mocking the request
-const mockApiCall = () => testProfileData;
+// const mockApiCall = () => testProfileData;
+const mockApiCall = () => testPieChartData;
 
-function* fetchBatchDataAsync() {
+function* fetchBatchDataAsync(action) {
   const url = '/batch/status/359';
   const batchOptions = {
     method: 'GET',
@@ -40,23 +42,41 @@ function* fetchBatchDataAsync() {
     type: ACTION_TYPE.FETCH_BATCH_STATUS_LOADING
   });
 //   yield delay(3000); // delay here to showcase the loading higher or component
-  try {
-    const result = yield call(apiCall);
+  while(true){
+    try {
+      const result = yield call(mockApiCall);
+
+      // USE FOR mockApiCall
+      yield put({
+        type: ACTION_TYPE.FETCH_BATCH_STATUS_SUCCESS,
+        data: result
+      });
+
+      // USE FOR apiCall
+
+      // yield put({
+      //   type: ACTION_TYPE.FETCH_BATCH_STATUS_SUCCESS,
+      //   data: result.data
+      // });
+
+      yield put({
+        type: ACTION_TYPE.START_POLLING
+      })
+      yield call(delay, 10000)
+      yield put({
+        type: ACTION_TYPE.STOP_POLLING
+      })
+    } catch (err) {
+      yield put({
+        type: ACTION_TYPE.FETCH_BATCH_STATUS_FAILED,
+        error: err
+      });
+    }
+    /** turn loading flag off once things have been completed, success or fail.*/
     yield put({
-      type: ACTION_TYPE.FETCH_BATCH_STATUS_SUCCESS,
-      data: result
-    });
-    yield call(delay, 5000)
-  } catch (err) {
-    yield put({
-      type: ACTION_TYPE.FETCH_BATCH_STATUS_FAILED,
-      error: err
+      type: ACTION_TYPE.FETCH_BATCH_STATUS_LOADING
     });
   }
-  /** turn loading flag off once things have been completed, success or fail.*/
-  yield put({
-    type: ACTION_TYPE.FETCH_BATCH_STATUS_LOADING
-  });
 }
 
 function* watchPollSaga(){

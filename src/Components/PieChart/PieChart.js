@@ -170,7 +170,7 @@ export class PieChart extends Component {
 
 const mapStateToProps = (state = StoreState.batches) => {
   return {
-    batchStatus: state.batches.batchStatus.data
+    batchStatus: state.batches.batchStatus
   };
 };
 

@@ -26,3 +26,19 @@ export const fetchBatchStatus = () => {
     })
   }
 };
+
+export const startPolling = () => {
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_TYPE.START_POLLING
+    })
+  }
+}
+
+export const stopPolling = () => {
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_TYPE.STOP_POLLING
+    })
+  }
+}
