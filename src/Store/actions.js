@@ -18,3 +18,27 @@ export const fetchUserProfileInfo = () => {
     })
   }
 };
+
+export const fetchBatchStatus = () => {
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_TYPE.FETCH_BATCH_STATUS_ASYNC
+    })
+  }
+};
+
+export const startPolling = () => {
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_TYPE.START_POLLING
+    })
+  }
+}
+
+export const stopPolling = () => {
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_TYPE.STOP_POLLING
+    })
+  }
+}
