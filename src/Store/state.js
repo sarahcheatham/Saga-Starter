@@ -3,6 +3,11 @@ const StoreState = {
     user: {},
     loadingUserInfo: false,
     UserInfoRequestError: ''
+  },
+  batches: {
+    batchStatus: {},
+    loadingStatus: false,
+    errorStatus: ''
   }
 };
 

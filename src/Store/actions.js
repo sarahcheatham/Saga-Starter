@@ -18,3 +18,11 @@ export const fetchUserProfileInfo = () => {
     })
   }
 };
+
+export const fetchBatchStatus = () => {
+  return (dispatch) => {
+    dispatch({
+      type: ACTION_TYPE.FETCH_BATCH_STATUS_ASYNC
+    })
+  }
+};
