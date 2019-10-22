@@ -19,6 +19,16 @@ const batchStatusReducers = (state = StoreState.batches, action) => {
         ...state,
         errorStatus: error
       };
+    case ACTION_TYPE.START_POLLING:
+      return {
+        ...state,
+        isPolling: true
+      }
+    case ACTION_TYPE.STOP_POLLING:
+      return {
+        ...state,
+        isPolling: false
+      }
     default:
       return {
         ...state

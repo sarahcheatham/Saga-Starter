@@ -7,7 +7,8 @@ const StoreState = {
   batches: {
     batchStatus: {},
     loadingStatus: false,
-    errorStatus: ''
+    errorStatus: '',
+    isPolling: false
   }
 };
 
