@@ -45,23 +45,26 @@ function* fetchBatchDataAsync(action) {
   while(true){
     try {
       const result = yield call(mockApiCall);
-
+      
+      yield put({
+        type: ACTION_TYPE.START_POLLING
+      })
       // USE FOR mockApiCall
+      // yield put({
+      //   type: ACTION_TYPE.FETCH_BATCH_STATUS_SUCCESS,
+      //   data: result
+      // });
+
+      // USE FOR apiCall
+
       yield put({
         type: ACTION_TYPE.FETCH_BATCH_STATUS_SUCCESS,
         data: result
       });
 
-      // USE FOR apiCall
-
       // yield put({
-      //   type: ACTION_TYPE.FETCH_BATCH_STATUS_SUCCESS,
-      //   data: result.data
-      // });
-
-      yield put({
-        type: ACTION_TYPE.START_POLLING
-      })
+      //   type: ACTION_TYPE.START_POLLING
+      // })
       yield call(delay, 10000)
       yield put({
         type: ACTION_TYPE.STOP_POLLING

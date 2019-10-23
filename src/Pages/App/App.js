@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import StoreState from "../../Store/state";
 import { fetchUserProfileInfo, fetchBatchStatus } from "../../Store/actions";
 import WithLoading from "../../Components/HOC/WithLoading";
-import ProfileInfo from '../../Components/ProfileInfo';
+// import ProfileInfo from '../../Components/ProfileInfo';
 import PieChart from '../../Components/PieChart/PieChart';
 import "./App.css";
 
@@ -12,12 +12,12 @@ import "./App.css";
  * state here. I'll map it in it's own component to show the usefulness of redux and the global storeState.
  * */
 
-const ProfileInfoLoading = WithLoading(ProfileInfo);
+// const ProfileInfoLoading = WithLoading(ProfileInfo);
 const PieChartLoading = WithLoading(PieChart);
 class App extends Component {
 
   componentDidMount() {
-    this.props.fetchUserProfileInfo();
+    // this.props.fetchUserProfileInfo();
     this.props.fetchBatchStatus();
     
   }
@@ -27,10 +27,10 @@ class App extends Component {
       <div>
         <p style={{textAlign: 'center'}}>APP JS!</p>
         <div>
-          <ProfileInfoLoading isLoading={this.props.loadingUserInfo} />
+          {/* <ProfileInfoLoading isLoading={this.props.loadingUserInfo} /> */}
         </div>
         <div>
-          <PieChartLoading isLoading={this.props.loadingStatus}/>
+          <PieChartLoading isLoading={this.props.loadingStatus} isPolling={this.props.isPolling}/>
         </div>
       </div>
     )
@@ -43,16 +43,17 @@ class App extends Component {
 // really is just personal preference. Not a deal breaker if you aren't into it.
 const mapStateToProps = (state) => {
   return {
-    loadingUserInfo: state.profile.loadingUserInfo,
-    loadingStatus: state.batches.loadingStatus
+    // loadingUserInfo: state.profile.loadingUserInfo,
+    loadingStatus: state.batches.loadingStatus,
+    isPolling: state.batches.isPolling
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserProfileInfo: () => {
-      dispatch(fetchUserProfileInfo())
-    },
+    // fetchUserProfileInfo: () => {
+    //   dispatch(fetchUserProfileInfo())
+    // },
     fetchBatchStatus: () => {
       dispatch(fetchBatchStatus())
     }
